@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+    --color-accent: #4f46e5;
+    --color-accent-soft: #eef2ff;
+
+    --color-bg: #fafafa;
+    --color-surface: #ffffff;
+    --color-ink: #18181b;
+    --color-ink-2: #3f3f46;
+    --color-muted: #71717a;
+    --color-faint: #a1a1aa;
+    --color-line: #e4e4e7;
+    --color-line-2: #d4d4d8;
+    --color-track: #f1f1f3;
+
+    --radius-card: 14px;
+
+    --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+    --animate-page-in: page-in 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    --animate-page-in-delayed: page-in 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s backwards;
+}
+
+@keyframes page-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}
