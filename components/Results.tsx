@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { buildResults } from "@/lib/results";
 import { Answers, SurveyCounts } from "@/lib/types";
+import { InterviewSignup } from "./InterviewSignup";
 import { ResultBlock } from "./ResultBlock";
 
 interface ResultsProps {
@@ -52,6 +53,8 @@ export function Results({ answers, counts, onRestart }: ResultsProps) {
           <ResultBlock key={b.q.id} block={b} />
         ))}
       </div>
+
+      <InterviewSignup />
 
       <div className="mt-11 flex gap-3 max-[560px]:flex-col">
         <button

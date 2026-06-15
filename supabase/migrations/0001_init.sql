@@ -6,7 +6,7 @@ create table public.responses (
   completed_at timestamptz,
   q1 text[] not null default '{}',
   q2 text,
-  q3 text,
+  q3 text[] not null default '{}',
   q4 text,
   q5 text
 );
@@ -64,8 +64,8 @@ as $$
            from (select unnest(q1) as opt, count(*) as n from responses where id is distinct from p_respondent_id group by 1) s),
     'q2', (select coalesce(jsonb_object_agg(q2, n), '{}'::jsonb)
            from (select q2, count(*) as n from responses where q2 is not null and id is distinct from p_respondent_id group by 1) s),
-    'q3', (select coalesce(jsonb_object_agg(q3, n), '{}'::jsonb)
-           from (select q3, count(*) as n from responses where q3 is not null and id is distinct from p_respondent_id group by 1) s),
+    'q3', (select coalesce(jsonb_object_agg(opt, n), '{}'::jsonb)
+           from (select unnest(q3) as opt, count(*) as n from responses where id is distinct from p_respondent_id group by 1) s),
     'q4', (select coalesce(jsonb_object_agg(q4, n), '{}'::jsonb)
            from (select q4, count(*) as n from responses where q4 is not null and id is distinct from p_respondent_id group by 1) s),
     'q5', (select coalesce(jsonb_object_agg(q5, n), '{}'::jsonb)
@@ -74,3 +74,20 @@ as $$
 $$;
 
 grant execute on function public.get_survey_counts(uuid) to anon;
+
+-- Optional interview recruitment signups. Intentionally not linked to
+-- responses (no foreign key / shared id) so it can't be used to de-anonymize
+-- a respondent's answers. Write-only: anon can insert but never read back.
+create table public.interview_signups (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  contact text not null
+);
+
+alter table public.interview_signups enable row level security;
+
+grant insert on public.interview_signups to anon;
+
+create policy "anon can submit interview signup" on public.interview_signups
+  for insert to anon
+  with check (true);

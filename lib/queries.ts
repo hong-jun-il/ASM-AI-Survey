@@ -29,7 +29,7 @@ function toResponsePayload(
   return {
     q1: (answers.q1 as string[] | undefined) ?? [],
     q2: (answers.q2 as string | undefined) ?? null,
-    q3: (answers.q3 as string | undefined) ?? null,
+    q3: (answers.q3 as string[] | undefined) ?? [],
     q4: (answers.q4 as string | undefined) ?? null,
     q5: (answers.q5 as string | undefined) ?? null,
     updated_at: new Date().toISOString(),
@@ -79,6 +79,20 @@ export function useSaveResponse() {
       if (variables.completed) {
         queryClient.invalidateQueries({ queryKey: SURVEY_COUNTS_KEY });
       }
+    },
+  });
+}
+
+// Optional interview recruitment signup. Stored in its own table, unlinked to
+// the respondent's answers (see supabase/migrations/0001_init.sql).
+export function useSubmitInterviewSignup() {
+  return useMutation({
+    mutationFn: async (contact: string) => {
+      if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");
+      const { error } = await supabase
+        .from("interview_signups")
+        .insert({ contact });
+      if (error) throw error;
     },
   });
 }
