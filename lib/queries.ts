@@ -64,6 +64,7 @@ export function useSaveResponse() {
     }: SaveResponseArgs) => {
       if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");
       const payload = toResponsePayload(answers, !!completed);
+      console.log(created);
       const { error } = created
         ? await supabase
             .from("responses")

@@ -67,7 +67,6 @@ export const SURVEY: SurveyDefinition = {
         { id: "gpt_free", group: "ChatGPT", label: "Free" },
         { id: "gpt_go", group: "ChatGPT", label: "Go" },
         { id: "gpt_plus", group: "ChatGPT", label: "Plus" },
-        { id: "gpt_pro", group: "ChatGPT", label: "Pro" },
         { id: "gpt_pro_5x", group: "ChatGPT", label: "Pro 5x" },
         { id: "gpt_pro_20x", group: "ChatGPT", label: "Pro 20x" },
         { id: "gpt_team", group: "ChatGPT", label: "Team" },

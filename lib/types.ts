@@ -53,6 +53,7 @@ export interface TalliedOption extends SurveyOption {
 export interface QuestionTally {
   opts: TalliedOption[];
   denom: number;
+  respondents: number;
   voted: boolean;
 }
 

@@ -24,7 +24,12 @@ export function Bar({ opt, denom, delay }: BarProps) {
       <div className="mb-1.75 flex items-baseline justify-between gap-3">
         <span className="text-[14.5px] font-[550] tracking-[-0.005em] text-ink">
           {opt.label}
-          {opt.desc ? <span className="text-[13px] font-[450] text-muted"> · {opt.desc}</span> : null}
+          {opt.desc ? (
+            <span className="text-[13px] font-[450] text-muted">
+              {" "}
+              · {opt.desc}
+            </span>
+          ) : null}
           {opt.mine && (
             <span className="ml-2 rounded-full bg-accent-soft px-1.75 py-0.5 align-[1px] text-[11px] font-[650]">
               내 응답
