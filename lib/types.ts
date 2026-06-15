@@ -15,6 +15,8 @@ export interface SurveyQuestion {
   hint: string;
   required: boolean;
   groups?: boolean;
+  /** For multi-select questions with groups: selecting an option deselects any other selected option in the same group. */
+  exclusiveGroups?: boolean;
   options: SurveyOption[];
 }
 
@@ -66,7 +68,7 @@ export interface ResultBlockData {
 export interface ResponsePayload {
   q1: string[];
   q2: string | null;
-  q3: string | null;
+  q3: string[];
   q4: string | null;
   q5: string | null;
   updated_at: string;

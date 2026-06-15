@@ -14,9 +14,17 @@ export function Question({ q, value, counts, onChange }: QuestionProps) {
     if (q.type === "multi") {
       onChange((cur) => {
         const arr = (cur as string[] | undefined) ?? [];
-        return arr.includes(optId)
-          ? arr.filter((x) => x !== optId)
-          : [...arr, optId];
+        if (arr.includes(optId)) {
+          return arr.filter((x) => x !== optId);
+        }
+        if (q.exclusiveGroups) {
+          const group = q.options.find((o) => o.id === optId)?.group;
+          const next = arr.filter(
+            (x) => q.options.find((o) => o.id === x)?.group !== group,
+          );
+          return [...next, optId];
+        }
+        return [...arr, optId];
       });
     } else {
       onChange((cur) => (cur === optId ? null : optId));

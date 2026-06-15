@@ -53,11 +53,12 @@ export const SURVEY: SurveyDefinition = {
     {
       id: "q3",
       no: "Q3",
-      type: "single",
+      type: "multi",
       title: "현재 사용 중인 플랜은?",
-      hint: "메인으로 쓰는 서비스 기준으로 선택",
+      hint: "AI별로 하나씩 선택 — 다른 AI는 복수 선택 가능",
       required: true,
       groups: true,
+      exclusiveGroups: true,
       options: [
         { id: "claude_free", group: "Claude", label: "Free" },
         { id: "claude_pro", group: "Claude", label: "Pro", desc: "$20/월" },
