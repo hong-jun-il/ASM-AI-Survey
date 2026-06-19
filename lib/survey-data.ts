@@ -4,15 +4,60 @@ import { SurveyDefinition } from "./types";
 // Supabase (see lib/queries.ts) rather than here.
 export const SURVEY: SurveyDefinition = {
   meta: {
-    title: "사내 AI 사용 현황 설문",
+    title: "AI 사용 현황 설문",
     subtitle: "각 문항을 선택하면 바로 전체 결과가 보여요.",
     intro:
       "로그인 없이 익명으로 참여합니다. 선택하면 그 자리에서 바로 분포가 열리고, 같은 항목을 다시 누르면 투표가 취소됩니다.",
   },
   questions: [
     {
-      id: "q1",
+      id: "status",
       no: "Q1",
+      type: "single",
+      title: "현재 상태는?",
+      hint: "선택 — 응답하지 않아도 됩니다",
+      required: false,
+      options: [
+        { id: "student", label: "학생" },
+        { id: "employed", label: "재직자" },
+        { id: "etc", label: "기타" },
+      ],
+    },
+    {
+      id: "q5",
+      no: "Q2",
+      type: "single",
+      title: "종사 분야는?",
+      hint: "선택 — 응답하지 않아도 됩니다",
+      required: false,
+      options: [
+        { id: "dev", label: "개발" },
+        { id: "pm", label: "기획 · PM" },
+        { id: "design", label: "디자인" },
+        { id: "marketing", label: "마케팅" },
+        { id: "biz", label: "경영 · 전략" },
+        { id: "etc", label: "기타" },
+      ],
+    },
+    {
+      id: "company_size",
+      no: "Q3",
+      type: "single",
+      title: "회사 규모는?",
+      hint: "선택 — 응답하지 않아도 됩니다",
+      required: false,
+      options: [
+        { id: "size_1_9", label: "1~9명" },
+        { id: "size_10_49", label: "10~49명" },
+        { id: "size_50_299", label: "50~299명" },
+        { id: "size_300_999", label: "300~999명" },
+        { id: "size_1000plus", label: "1,000명 이상" },
+        { id: "na_student", label: "해당 없음", desc: "학생 등" },
+      ],
+    },
+    {
+      id: "q1",
+      no: "Q4",
       type: "multi",
       title: "주로 사용하는 AI 서비스는?",
       hint: "복수 선택 가능",
@@ -28,10 +73,10 @@ export const SURVEY: SurveyDefinition = {
     },
     {
       id: "q2",
-      no: "Q2",
+      no: "Q5",
       type: "single",
       title: "회사에서 AI를 어떻게 제공받고 있나요?",
-      hint: "단일 선택",
+      hint: "단일 선택 — 학생이라면 '해당 없음'을 선택하거나 건너뛰어도 돼요",
       required: true,
       options: [
         {
@@ -48,11 +93,16 @@ export const SURVEY: SurveyDefinition = {
         { id: "selfhosted", label: "사내 자체 구축 AI", desc: "사내망 등" },
         { id: "none_support", label: "회사 지원 없음 — 개인 비용으로 사용" },
         { id: "no_use", label: "AI 사용 안 함" },
+        {
+          id: "na_student",
+          label: "해당 없음",
+          desc: "학생이라 회사 지원 해당 없음",
+        },
       ],
     },
     {
       id: "q3",
-      no: "Q3",
+      no: "Q6",
       type: "multi",
       title: "현재 사용 중인 플랜은?",
       hint: "AI별로 하나씩 선택 — 다른 AI는 복수 선택 가능",
@@ -82,7 +132,7 @@ export const SURVEY: SurveyDefinition = {
     },
     {
       id: "q4",
-      no: "Q4",
+      no: "Q7",
       type: "single",
       title: "하루 usage 소진율은?",
       hint: "단일 선택",
@@ -97,22 +147,6 @@ export const SURVEY: SurveyDefinition = {
           label: "사용량 제한 없음",
           desc: "무제한 플랜·해당 없음",
         },
-      ],
-    },
-    {
-      id: "q5",
-      no: "Q5",
-      type: "single",
-      title: "직군은?",
-      hint: "선택 — 응답하지 않아도 됩니다",
-      required: false,
-      options: [
-        { id: "dev", label: "개발" },
-        { id: "pm", label: "기획 · PM" },
-        { id: "design", label: "디자인" },
-        { id: "marketing", label: "마케팅" },
-        { id: "biz", label: "경영 · 전략" },
-        { id: "etc", label: "기타" },
       ],
     },
   ],

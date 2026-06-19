@@ -12,7 +12,14 @@ interface SurveyProps {
   submitError: string | null;
 }
 
-export function Survey({ answers, setAnswers, counts, onSubmit, submitting, submitError }: SurveyProps) {
+export function Survey({
+  answers,
+  setAnswers,
+  counts,
+  onSubmit,
+  submitting,
+  submitError,
+}: SurveyProps) {
   const all = SURVEY.questions;
   const answeredCount = all.filter((q) => {
     const v = answers[q.id];
@@ -21,7 +28,10 @@ export function Survey({ answers, setAnswers, counts, onSubmit, submitting, subm
   const ready = answeredCount > 0;
   const pct = Math.round((answeredCount / all.length) * 100);
 
-  const setOne = (qid: string, updater: (cur: Answers[string]) => Answers[string]) => {
+  const setOne = (
+    qid: string,
+    updater: (cur: Answers[string]) => Answers[string],
+  ) => {
     setAnswers((prev) => ({ ...prev, [qid]: updater(prev[qid]) }));
   };
 
@@ -29,7 +39,7 @@ export function Survey({ answers, setAnswers, counts, onSubmit, submitting, subm
     <div>
       <header className="motion-safe:animate-page-in">
         <span className="mb-4 inline-block text-xs font-semibold uppercase tracking-[0.08em] text-accent">
-          사내 AI 설문 · 익명
+          AI 사용 현황 설문 · 익명
         </span>
         <h1 className="m-0 mb-3 text-[clamp(28px,6vw,38px)] font-bold leading-[1.18] tracking-[-0.02em] text-balance">
           {SURVEY.meta.title}
@@ -66,7 +76,11 @@ export function Survey({ answers, setAnswers, counts, onSubmit, submitting, subm
             <span className="text-[12.5px] text-muted tabular-nums">
               {answeredCount}/{all.length} 응답
             </span>
-            {submitError && <span className="mt-3 block text-right text-[12.5px] text-red-600">{submitError}</span>}
+            {submitError && (
+              <span className="mt-3 block text-right text-[12.5px] text-red-600">
+                {submitError}
+              </span>
+            )}
           </div>
           <button
             type="button"

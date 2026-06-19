@@ -27,6 +27,8 @@ function toResponsePayload(
   completed: boolean,
 ): ResponsePayload {
   return {
+    status: (answers.status as string | undefined) ?? null,
+    company_size: (answers.company_size as string | undefined) ?? null,
     q1: (answers.q1 as string[] | undefined) ?? [],
     q2: (answers.q2 as string | undefined) ?? null,
     q3: (answers.q3 as string[] | undefined) ?? [],
@@ -64,7 +66,6 @@ export function useSaveResponse() {
     }: SaveResponseArgs) => {
       if (!supabase) throw new Error("Supabase가 설정되지 않았습니다.");
       const payload = toResponsePayload(answers, !!completed);
-      console.log(created);
       const { error } = created
         ? await supabase
             .from("responses")

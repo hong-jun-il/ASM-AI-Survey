@@ -39,6 +39,8 @@ export type QuestionCounts = Record<string, number>;
 
 export interface SurveyCounts {
   total: number;
+  status: QuestionCounts;
+  company_size: QuestionCounts;
   q1: QuestionCounts;
   q2: QuestionCounts;
   q3: QuestionCounts;
@@ -66,6 +68,8 @@ export interface ResultBlockData {
 }
 
 export interface ResponsePayload {
+  status: string | null;
+  company_size: string | null;
   q1: string[];
   q2: string | null;
   q3: string[];
